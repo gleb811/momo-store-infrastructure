@@ -1,0 +1,50 @@
+stages:
+  - common
+ # - terraform
+ # - configure
+
+variables:
+  CLUSTER_NAME: ${CI_COMMIT_REF_NAME}
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+      variables:
+        IMAGE_TAG: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      variables:
+        IMAGE_TAG: "latest"
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      variables:
+        IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+    - when: always
+
+common:
+  stage: common
+  trigger:
+    include:
+      - "common-pipeline-tools/.gitlab-ci.yml"
+    strategy: depend
+  only:
+    changes:
+      - common-pipeline-tools/**/*
+
+terraform:
+  stage: terraform
+  trigger:
+    include:
+      - "terraform/.gitlab-ci.yml"
+    strategy: depend
+  only:
+    changes:
+      - terraform/**/*
+
+helm:
+  stage: configure
+  trigger:
+    include:
+      - "helm/.gitlab-ci.yml"
+    strategy: depend
+  only:
+    changes:
+      - helm/**/*
