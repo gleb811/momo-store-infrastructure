@@ -1,6 +1,6 @@
 stages:
   - common
-#  - terraform
+  - terraform
 #  - configure
 
 variables:
