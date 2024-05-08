@@ -42,8 +42,8 @@ validate:
   extends: .terraform:validate
   needs: []
 
-#build:
-#  extends: .terraform:build
+build:
+  extends: .terraform:build
 
 #deploy:
 #  extends: .terraform:deploy
