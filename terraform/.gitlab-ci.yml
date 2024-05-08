@@ -1,0 +1,61 @@
+include:
+  - template: Terraform/Base.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.gitlab-ci.yml
+
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+  - cleanup
+
+before_script: 
+  - echo $YC_KEY > ./terraform/sa_key.json
+  - |
+    cat > ~/.terraformrc << EOF 
+    provider_installation {
+      network_mirror {
+        url = "https://terraform-mirror.yandexcloud.net/"
+        include = ["registry.terraform.io/*/*"]
+      }
+      direct {
+        exclude = ["registry.terraform.io/*/*"]
+      }
+    }
+    EOF 
+
+variables:
+  TF_ROOT: ${CI_PROJECT_DIR}/terraform
+  TF_STATE_NAME: default
+  TF_CACHE_KEY: default
+  
+  TF_VAR_cloud_id: ${YC_CLOUD_ID}
+  TF_VAR_folder_id: ${YC_FOLDER_ID}
+  TF_VAR_zone: ru-central1-a
+  TF_VAR_cluster_name: ${CLUSTER_NAME}
+
+fmt:
+  extends: .terraform:fmt
+  needs: []
+
+validate:
+  extends: .terraform:validate
+  needs: []
+
+#build:
+#  extends: .terraform:build
+
+#deploy:
+#  extends: .terraform:deploy
+#  dependencies:
+#    - build
+#  environment:
+#    name: $TF_STATE_NAME
+#    on_stop: cleanup
+
+#cleanup:
+#  extends: .terraform:destroy
+#  stage: cleanup
+#  environment:
+#    name: $TF_STATE_NAME
+#    action: stop

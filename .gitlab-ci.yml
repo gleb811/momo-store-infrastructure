@@ -29,15 +29,15 @@ common:
     changes:
       - common-pipeline-tools/**/*
 
-#terraform:
-#  stage: terraform
-#  trigger:
-#    include:
-#      - "terraform/.gitlab-ci.yml"
-#    strategy: depend
-#  only:
-#    changes:
-#      - terraform/**/*
+terraform:
+  stage: terraform
+  trigger:
+    include:
+      - "terraform/.gitlab-ci.yml"
+    strategy: depend
+  only:
+    changes:
+      - terraform/**/*
 
 #helm:
 #  stage: configure
