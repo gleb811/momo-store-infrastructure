@@ -11,7 +11,6 @@ stages:
 
 before_script: 
   - cat $YC_KEY > ./terraform/sa_key.json
-  - cat ./terraform/sa_key.json
   - |
     cat > ~/.terraformrc << EOF 
     provider_installation {
@@ -46,13 +45,13 @@ validate:
 build:
   extends: .terraform:build
 
-#deploy:
-#  extends: .terraform:deploy
-#  dependencies:
-#    - build
-#  environment:
-#    name: $TF_STATE_NAME
-#    on_stop: cleanup
+deploy:
+  extends: .terraform:deploy
+  dependencies:
+    - build
+  environment:
+    name: $TF_STATE_NAME
+    on_stop: cleanup
 
 #cleanup:
 #  extends: .terraform:destroy
