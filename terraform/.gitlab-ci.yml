@@ -10,7 +10,7 @@ stages:
   - cleanup
 
 before_script: 
-  - echo $YC_KEY > ./terraform/sa_key.json
+  - cat $YC_KEY > ./terraform/sa_key.json
   - cat ./terraform/sa_key.json
   - |
     cat > ~/.terraformrc << EOF 
