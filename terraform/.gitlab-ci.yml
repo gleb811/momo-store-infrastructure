@@ -53,9 +53,9 @@ deploy:
     name: $TF_STATE_NAME
     on_stop: cleanup
 
-#cleanup:
-#  extends: .terraform:destroy
-#  stage: cleanup
-#  environment:
-#    name: $TF_STATE_NAME
-#    action: stop
+cleanup:
+  extends: .terraform:destroy
+  stage: cleanup
+  environment:
+    name: $TF_STATE_NAME
+    action: stop
