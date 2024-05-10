@@ -5,7 +5,7 @@ resource "yandex_kubernetes_cluster" "momo_cluster" {
   network_id = yandex_vpc_network.momo_network.id
 
   master {
-    version   = "1.22"
+    version   = "1.26"
     public_ip = true
     zonal {
       zone      = var.zone
