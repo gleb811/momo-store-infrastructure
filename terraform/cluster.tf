@@ -7,7 +7,7 @@ resource "yandex_kubernetes_cluster" "momo_cluster" {
   master {
     version   = "1.26"
     public_ip = true
-    name      = ${var.cluster_name}
+    name      = "${var.cluster_name}"
     zonal {
       zone      = var.zone
       subnet_id = yandex_vpc_subnet.momo_subnet.id
