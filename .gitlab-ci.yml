@@ -1,7 +1,7 @@
 stages:
   - common
   - terraform
-#  - configure
+  - configure
 
 variables:
   CLUSTER_NAME: ${CI_COMMIT_REF_NAME}
