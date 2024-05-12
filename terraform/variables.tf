@@ -16,6 +16,7 @@ variable "zone" {
 variable "cluster_name" {
   type        = string
   description = "Name of cluster"
+  default = "diploma"
 }
 
 variable "subnets" {
