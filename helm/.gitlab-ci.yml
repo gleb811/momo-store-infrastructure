@@ -18,29 +18,29 @@ ingress-nginx:
       --repo https://kubernetes.github.io/ingress-nginx 
       --namespace ingress-nginx --create-namespace
 
-#argo-cd:
-#  stage: utils
-#  image:
-#    name: ${CI_REGISTRY_IMAGE}/cpi:latest
-#  script:
-#    - >
-#      helm upgrade --install --atomic argo-cd argo-cd
-#      --repo https://argoproj.github.io/argo-helm
-#      --namespace argocd --create-namespace
-#      -f helm/argocd/values.yaml
-#    # Setup ArgoCD declarative way
- #   - kubectl -n argocd apply -f helm/argocd/manifests/gitlab-token.yaml
- #   - kubectl -n argocd apply -f helm/argocd/manifests/repository.yaml
- #   - kubectl -n argocd apply -f helm/argocd/manifests/application.yaml
- #   - kubectl -n argocd apply -f helm/argocd/manifests/applicationset.yaml
+argo-cd:
+  stage: utils
+  image:
+    name: ${CI_REGISTRY_IMAGE}/cpi:latest
+  script:
+    - >
+      helm upgrade --install --atomic argo-cd argo-cd
+      --repo https://argoproj.github.io/argo-helm
+      --namespace argocd --create-namespace
+      -f helm/argocd/values.yaml
+    # Setup ArgoCD declarative way
+    - kubectl -n argocd apply -f helm/argocd/manifests/gitlab-token.yaml
+    - kubectl -n argocd apply -f helm/argocd/manifests/repository.yaml
+    - kubectl -n argocd apply -f helm/argocd/manifests/application.yaml
+    - kubectl -n argocd apply -f helm/argocd/manifests/applicationset.yaml
 
-#monitoring:
-#  stage: utils
-#  image:
-#    name: ${CI_REGISTRY_IMAGE}/cpi:latest
-#  script:
-#    - >
-#      helm upgrade --install --atomic kube-prometheus-stack kube-prometheus-stack
-#      --repo https://prometheus-community.github.io/helm-charts 
-#      --namespace monitoring --create-namespace
-#      -f helm/kube-prometheus-stack/values.yaml
+monitoring:
+  stage: utils
+  image:
+    name: ${CI_REGISTRY_IMAGE}/cpi:latest
+  script:
+    - >
+      helm upgrade --install --atomic kube-prometheus-stack kube-prometheus-stack
+      --repo https://prometheus-community.github.io/helm-charts 
+      --namespace monitoring --create-namespace
+      -f helm/kube-prometheus-stack/values.yaml
