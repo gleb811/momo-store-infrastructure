@@ -28,7 +28,7 @@ spec:
           - name: "momo-frontend.image.tag"
             value: "{{head_sha}}"
           - name: "momo-frontend.ingress.hosts[0]"
-            value: "review-app-{{number}}.momo-store.antonborodinskiy.ru"
+            value: "review-app-{{number}}.momo-store.glebfedotov.ru"
       project: default
       destination:
         server: https://kubernetes.default.svc
