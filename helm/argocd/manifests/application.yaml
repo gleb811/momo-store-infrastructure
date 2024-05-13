@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: momo-store
+spec:
+  source:
+    repoURL: https://gitlab.praktikum-services.ru/std-024-07/momo-store-helm.git
+    path: ./
+    targetRevision: HEAD
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,36 @@
+## Argo CD configuration
+## Ref: https://github.com/argoproj/argo-cd
+##
+
+configs:
+  params:
+    server.insecure: true
+
+## Server
+server:
+  ingress:
+    enabled: true
+    annotations: {}
+    ingressClassName: "nginx"
+
+    # -- List of ingress hosts
+    ## Argo Ingress.
+    ## Hostnames must be provided if Ingress is enabled.
+    ## Secrets must be manually created in the namespace
+    hosts:
+      - argocd.tech.glebfedotov.ru
+
+    # -- List of ingress paths
+    paths:
+      - /
+    pathType: Prefix
+
+    # -- Ingress TLS configuration
+    tls:
+      []
+      # - secretName: your-certificate-name
+      #   hosts:
+      #     - argocd.example.com
+
+    # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
+    https: false
