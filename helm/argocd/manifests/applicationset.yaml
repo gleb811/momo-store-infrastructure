@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: review-app
+spec:
+  generators:
+  - pullRequest:
+      gitlab:
+        project: '6262'
+        api: https://gitlab.praktikum-services.ru/
+        tokenRef:
+          secretName: gitlab-token
+          key: token
+        pullRequestState: opened
+      requeueAfterSeconds: 60
+  template:
+    metadata:
+      name: 'review-app-{{number}}'
+    spec:
+      source:
+        repoURL: 'https://gitlab.praktikum-services.ru/std-024-07/momo-store-helm.git'
+        path: ./
+        targetRevision: 'HEAD'
+        helm:
+          parameters:
+          - name: "momo-backend.image.tag"
+            value: "{{head_sha}}"
+          - name: "momo-frontend.image.tag"
+            value: "{{head_sha}}"
+          - name: "momo-frontend.ingress.hosts[0]"
+            value: "review-app-{{number}}.momo-store.antonborodinskiy.ru"
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'review-app-{{number}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
