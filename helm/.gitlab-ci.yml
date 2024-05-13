@@ -1,6 +1,6 @@
 stages:
   - ingress
-#  - utils
+  - utils
 
 before_script:
   - yc config set token ${YC_OAUTH_TOKEN}
