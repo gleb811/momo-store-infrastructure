@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+data:
+  project: ZGVmYXVsdA==
+  name: bW9tby1zdG9yZS1oZWxt
+  url: aHR0cHM6Ly9naXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1L3N0ZC0wMjQtMDcvbW9tby1zdG9yZS1oZWxtLmdpdA==
+  type: Z2l0
+  username: c3RkLTAyNC0wNw==
+  password: eDZwMTM1Z0w=
+metadata:
+  name: momo-store-helm
+  labels:
+    argocd.argoproj.io/secret-type: repository
