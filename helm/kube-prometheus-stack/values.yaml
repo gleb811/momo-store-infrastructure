@@ -1,0 +1,43 @@
+# Default values for kube-prometheus-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+##
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations: {}
+    hosts:
+      - grafana.tech.glebfedotov.ru
+    path: /
+    pathType: Prefix
+
+    ## TLS configuration for grafana Ingress
+    ## Secret must be manually created in the namespace
+    ##
+    tls: []
+    # - secretName: grafana-general-tls
+    #   hosts:
+    #   - grafana.example.com
+
+## Deploy a Prometheus instance
+##
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations: {}
+    hosts: 
+      - prometheus.tech.glebfedotov.ru
+    path: /
+    pathType: Prefix
+    
+    ## TLS configuration for Prometheus Ingress
+    ## Secret must be manually created in the namespace
+    ##
+    tls: []
+      # - secretName: prometheus-general-tls
+      #   hosts:
+      #     - prometheus.example.com
